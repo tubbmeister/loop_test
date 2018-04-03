@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             num.setText(String.valueOf(i)); // update your text
             //up.setText("UP");
             if (showTime< upTime) {
-                up.setText("Auto Up Now"); //where command to shut target will be.
+                up.setText("Auto Up "); //where command to shut target will be.
             }
             else // ((showTime>upTime))
 
