@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -45,13 +46,15 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             num.setText(String.valueOf(i)); // update your text
             //up.setText("UP");
+            Random r = new Random();
+            int i1 = r.nextInt(5 - 1) + 1; //range 1-4
             if (showTime< upTime) {
-                up.setText("Auto Up "); //where command to shut target will be.
+                up.setText("Auto Up " + i1); //where command to shut target will be with random
             }
             else // ((showTime>upTime))
 
                {
-                up.setText("Auto Down");
+                up.setText("Auto Down " + i1);
 
             }
         }
