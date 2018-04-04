@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
             num.setText(String.valueOf(i)); // update your text
             //up.setText("UP");
-
+            if (i==0) {
+                i1=0; //stops "old" random number reappearing
+            }
             if (showTime< upTime) {
                 up.setText("Auto Up " + i1); //where command to shut target will be with random
             }
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             Random r = new Random();
             i1 = r.nextInt(5 - 1) + 1; //range 1-4
         }
-        myHandler.post(myRunnable); //must go here to always run!
+
         i++;
         showTime++;
 
@@ -96,17 +98,19 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (iteration==numberOfRepetitions){
             myTimer.cancel(); // stop the timer
+            myHandler.removeCallbacksAndMessages(null);
 
             return;
 
 
 
     }
+        myHandler.post(myRunnable); //must go here to always run!
     }
 
     public void buttonOnClick(View v) {
         up.setText("UP");
-        myHandler.removeCallbacksAndMessages(null);
+        //myHandler.removeCallbacksAndMessages(null);
         i=0;
         showTime=0;
         x=1; //resets to allow loop to work
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         };
         myTimer = new Timer(); // must go here to prevent crash on restart timer button
         myTimer.schedule(myTask,0,1000); // TimerTask, delay, period
-
+        myHandler.removeCallbacksAndMessages(null);
     }
     public void buttonStop(View v) {
 
