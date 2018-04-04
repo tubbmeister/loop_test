@@ -1,5 +1,6 @@
 package com.example.richa_000.myapplication;
 
+import android.os.Debug;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Init var
-    int i=1,numberOfRepetitionsCount=0, upTime =5,iteration=0,delayTime=0, totalRunTime,repeatTime,showTime=0,x=1,numberOfRepetitions;
+    int i=0,i1,numberOfRepetitionsCount=0, upTime =5,iteration=0,delayTime=0, totalRunTime,repeatTime,showTime=0,x=1,numberOfRepetitions;
     TextView num,halt,up,down;
     EditText test,delay,repeat;
     final Handler myHandler = new Handler();
@@ -44,17 +45,17 @@ public class MainActivity extends AppCompatActivity {
     // Runnable method
     final Runnable myRunnable = new Runnable() {
         public void run() {
+
             num.setText(String.valueOf(i)); // update your text
             //up.setText("UP");
-            Random r = new Random();
-            int i1 = r.nextInt(5 - 1) + 1; //range 1-4
+
             if (showTime< upTime) {
                 up.setText("Auto Up " + i1); //where command to shut target will be with random
             }
             else // ((showTime>upTime))
 
                {
-                up.setText("Auto Down " + i1);
+                up.setText(" Down " + i1);
 
             }
         }
@@ -64,10 +65,16 @@ public class MainActivity extends AppCompatActivity {
     public void updateUI() {
        // totalRunTime =((upTime +delayTime) * numberOfRepetitions); //totalRunTime = total time of event
         totalRunTime =((upTime +delayTime))+1;
+
+        if (i==0) {
+            Random r = new Random();
+            i1 = r.nextInt(5 - 1) + 1; //range 1-4
+        }
+        myHandler.post(myRunnable); //must go here to always run!
         i++;
         showTime++;
-        myHandler.post(myRunnable); //must go here to always run!
-        if(i < upTime) { //upTime uses selected number
+
+       // if(i < upTime) { //upTime uses selected number
             //i++;
             //numberOfRepetitionsCount++;
             //showTime++; //DISPLAY FIGURE
@@ -79,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         //} else if (i==((upTime +delayTime))) {   //x=iterating total to cope with repetition
-        } else if (i==((totalRunTime))) {   //x=iterating total to cope with repetition
+        if (i==((totalRunTime))) {   //x=iterating total to cope with repetition
             // if (iteration==numberOfRepetitions) {
             i = 0;
+            //i1=0;
             iteration++;
             showTime = 0;
-         //   myHandler.post(myRunnable);
-            // x++;
+
 
         } else if (iteration==numberOfRepetitions){
             myTimer.cancel(); // stop the timer
@@ -103,15 +110,16 @@ public class MainActivity extends AppCompatActivity {
         i=0;
         showTime=0;
         x=1; //resets to allow loop to work
+        String upTimer = test.getText().toString(); //gets value for upTime (up time)
+        upTime =Integer.parseInt(upTimer); //converts to int
+        String delayTime1 = delay.getText().toString(); //gets value for down time
+        delayTime=Integer.parseInt(delayTime1); //converts to int
+        String delayTime2 = repeat.getText().toString(); //gets value for repetition
+        numberOfRepetitions=Integer.parseInt(delayTime2); //converts to int
         TimerTask myTask = new TimerTask() {
 
             public void run() {
-                String upTimer = test.getText().toString(); //gets value for upTime (up time)
-                upTime =Integer.parseInt(upTimer); //converts to int
-                String delayTime1 = delay.getText().toString(); //gets value for down time
-                delayTime=Integer.parseInt(delayTime1); //converts to int
-                String delayTime2 = repeat.getText().toString(); //gets value for repetition
-                numberOfRepetitions=Integer.parseInt(delayTime2); //converts to int
+
 
 
                 //upTime=10;
