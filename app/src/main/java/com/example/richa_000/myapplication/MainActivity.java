@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 up.setText(" Down " + i1);
 
             }
+
         }
     };
 
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (iteration==numberOfRepetitions){
             myTimer.cancel(); // stop the timer
-            myHandler.removeCallbacksAndMessages(null);
+            myHandler.removeCallbacks(myRunnable);
 
             return;
 
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public void buttonOnClick(View v) {
         up.setText("UP");
         //myHandler.removeCallbacksAndMessages(null);
+       // myHandler.post(myRunnable); //must go here to always run!
         i=0;
         showTime=0;
         x=1; //resets to allow loop to work
@@ -143,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
         up.setText("Down");
         i=0;
         showTime=0;
-        myHandler.removeCallbacksAndMessages(null);
+        myHandler.removeCallbacks(myRunnable);
+        //super.onDestroy();
     }
 
     public void delayClick(View v) {
